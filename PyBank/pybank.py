@@ -4,14 +4,13 @@
 
     To run this script:
 
-        pybankl.pl [--summary_file=SUMMARYFILE] input_file_1 input_file_2 ...
+        pybankl.pl [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
 
     <Chan FEng> 2018--02=11
 
 '''
 import csv
 from argparse import ArgumentParser
-from statistics import mean
 
 _SUMMARY_FILE = 'pybank_summary.txt'
 _SUMMARY_FORMAT = '''
@@ -46,16 +45,13 @@ def main():
                             help='One or more input files')
     arg_parser.add_argument('--summary_file', type=str,
                             help='Default summary file name is ' + _SUMMARY_FILE )
-
     args = arg_parser.parse_args()
-    input_files = args.input_files
-    summary_file = args.summary_file
 
     data = {}
-    for input_file in input_files:
+    for input_file in args.input_files:
         gather_data(data, input_file)
 
-    summarize(data, summary_file)
+    summarize(data, args.summary_file or _SUMMARY_FILE)
 
     return 0
 
@@ -104,7 +100,6 @@ def summarize(data, summary_file=None):
 
     for month in sorted(data, key=month_sort_key):
         revenue = data[month]
-        print('{} - {}'.format(month, revenue))
         total_revenue += revenue
 
         if prev_revenue:
@@ -131,6 +126,10 @@ def summarize(data, summary_file=None):
         greatest_decrease=decrease_revenue,
     )
     print(summary)
+
+    if summary_file:
+        with open(summary_file, 'w') as outfile:
+            outfile.write(summary)
 
     return 0
 

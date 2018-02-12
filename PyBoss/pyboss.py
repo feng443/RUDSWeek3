@@ -82,7 +82,7 @@ def main():
     try:
         out_fh = open(output_file, 'w')
         out_fh.write(','.join(['Emp ID', 'First Name', 'Last Name', 'DOB', 'SSN', 'State']) + "\n")
-    except FileNotFoundError as err:
+    except (OSError, IOError) as err:
         print('Could not open data file {} to write'.format(output_file))
         quit(-1)
 

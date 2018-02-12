@@ -4,9 +4,9 @@
 
     To run this script:
 
-        pybankl.pl [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
+        pybank.pl [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
 
-    <Chan FEng> 2018--02=11
+    <Chan Feng> 2018-02
 
 '''
 import csv

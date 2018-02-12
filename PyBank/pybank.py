@@ -4,7 +4,7 @@
 
     To run this script:
 
-        pybank.pl [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
+        pybank.py [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
 
     <Chan Feng> 2018-02
 
@@ -14,7 +14,7 @@ from argparse import ArgumentParser
 
 _SUMMARY_FILE = 'pybank_summary.txt'
 _SUMMARY_FORMAT = '''
-Financial Analysis'
+Financial Analysis
 --------------------------------
 Total Month: {total_month}
 Total Revenue: ${total_revenue:,}

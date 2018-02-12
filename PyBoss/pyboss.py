@@ -4,7 +4,7 @@
 
     To run this script:
 
-        pyboss.pl [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
+        pyboss.py [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
 
     <Chan Feng> 2018-02
 
@@ -77,11 +77,11 @@ def main():
                             help='Default output file name is ' + _OUTPUT_FILE )
     args = arg_parser.parse_args()
 
-    # Open output file handler in begining to avoid stored hugh amount of data
+    # Open output file handler in beginning to avoid storing hugh amount of data
     output_file = args.output_file or _OUTPUT_FILE
     try:
         out_fh = open(output_file, 'w')
-        out_fh.write(','.join(['Emp ID', 'First Name', 'Last Name', 'DOB', 'SSN', 'State']))
+        out_fh.write(','.join(['Emp ID', 'First Name', 'Last Name', 'DOB', 'SSN', 'State']) + "\n")
     except FileNotFoundError as err:
         print('Could not open data file {} to write'.format(output_file))
         quit(-1)
@@ -90,6 +90,9 @@ def main():
         with open(input_file) as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             next(reader, None)  # Skip header
+
+            # Production sysstem should have more exception handling for things like
+            # Empty rows, inccomplete SSN etc.
             for row in reader:
                 (id, name, dob, ssn, state) = row
                 (first, last) = name.split(' ')

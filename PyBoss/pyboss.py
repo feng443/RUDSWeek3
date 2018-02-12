@@ -98,7 +98,7 @@ def main():
                 (first, last) = name.split(' ')
                 dob = parse_date(dob)
                 ssn = '***-**' + ssn[-5:]
-                state = _STATE_CODE_LOOKUP.get(state, 'N/A')
+          state = _STATE_CODE_LOOKUP.get(state, 'N/A')
                 out_fh.write(','.join([id, name, first, last, dob, ssn, state]) + '\n')
 
     out_fh.close()

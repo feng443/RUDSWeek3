@@ -1,6 +1,13 @@
 ## Unit 3 | Assignment - Py Me Up, Charlie
 
-*Note*: instead of using main.py, which is confusing, I used file name pattern of pybank.py, pyboss.py etc.
+*Note*: 
+- Instead of using main.py, which is confusing, I used file name pattern of pybank.py, pyboss.py etc. 
+- I also use argparse to handle input file and summary file so the scripts can handle arbitrary input file name/path.
+
+TODO: 
+- Add better alignment in summary
+- Better handling of percentage format
+- Put negative sign after $ sign?
 
 ## Option 1: PyBank
 

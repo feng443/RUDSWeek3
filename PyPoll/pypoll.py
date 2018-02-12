@@ -52,7 +52,7 @@ def gather_data(data, input_file):
         reader = csv.reader(csvfile, delimiter=',')
         next(reader, None) # Skip header
         for row in reader:
-            (voter_id, county, candidate) = row
+            (_, _, candidate) = row
             data[candidate] = data.get(candidate, 0) + 1
 
 def summarize(data, summary_file=None):
@@ -77,5 +77,6 @@ def summarize(data, summary_file=None):
             outfile.write(summary)
 
     return 0
+
 if __name__ == '__main__':
     main()

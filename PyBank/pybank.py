@@ -66,21 +66,8 @@ def gather_data(data, input_file):
         next(reader, None) # Skip header
         for row in reader:
             month = normalize_month(row[0])
-            revenue = row[1]
-            data[month] = data.get(month, 0) + int(revenue)
+            data[month] = data.get(month, 0) + int(row[1])
 
-def normalize_month(month):
-    '''
-    :param month:
-    :return: month normalized to Jan-12
-
-    Assume either Jan-12 or Jan-2012 format.
-    Production system will need to a lot more sophisticated
-    '''
-    (mth, year) = month.split('-')
-    if int(year) > 2000:
-        return '{}-{:02d}'.format(mth, int(year) - 2000)
-    return month
 
 def summarize(data, summary_file=None):
     '''
@@ -132,6 +119,19 @@ def summarize(data, summary_file=None):
             outfile.write(summary)
 
     return 0
+
+def normalize_month(month):
+    '''
+    :param month:
+    :return: month normalized to Jan-12
+
+    Assume either Jan-12 or Jan-2012 format.
+    Production system will need to a lot more sophisticated
+    '''
+    (mth, year) = month.split('-')
+    if int(year) > 2000:
+        return '{}-{:02d}'.format(mth, int(year) - 2000)
+    return month
 
 def month_sort_key(month):
     '''

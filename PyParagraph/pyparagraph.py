@@ -43,7 +43,7 @@ def main():
 
     paragraphs = []
     for input_file in args.input_files:
-        with open(input_file) as f:
+        with open(input_file, 'r') as f:
             for paragraph in f:
                 paragraphs.append(paragraph)
 

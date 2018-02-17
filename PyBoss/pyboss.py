@@ -7,7 +7,6 @@
         pyboss.py [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
 
     <Chan Feng> 2018-02
-
 '''
 import csv
 from argparse import ArgumentParser
@@ -79,33 +78,34 @@ def main():
 
     # Open output file handler in beginning to avoid storing hugh amount of data
     output_file = args.output_file or _OUTPUT_FILE
-    try:
-        out_fh = open(output_file, 'w')
-        out_fh.write(','.join(['Emp ID', 'First Name', 'Last Name', 'DOB', 'SSN', 'State']) + "\n")
-    except (OSError, IOError) as err:
-        print('Could not open data file {} to write'.format(output_file))
-        quit(-1)
-
-    for input_file in args.input_files:
-        with open(input_file) as csvfile:
-            reader = csv.reader(csvfile, delimiter=',')
-            next(reader, None)  # Skip header
-
-            # Production sysstem should have more exception handling for things like
-            # Empty rows, inccomplete SSN etc.
-            for row in reader:
-                (id, name, dob, ssn, state) = row
-                (first, last) = name.split(' ')
-                dob = parse_date(dob)
-                ssn = '***-**' + ssn[-5:]
-          state = _STATE_CODE_LOOKUP.get(state, 'N/A')
-                out_fh.write(','.join([id, name, first, last, dob, ssn, state]) + '\n')
-
-    out_fh.close()
-    print('Done!')
+    with open(output_file, 'w', newline='') as out_fh:
+        csv_writer = csv.writer(out_fh, delimiter=',')
+        csv_writer.writerow(['Emp ID', 'First Name', 'Last Name', 'DOB', 'SSN', 'State'])
+        for input_file in args.input_files:
+            process_file(input_file, csv_writer)
     return 0
 
-def parse_date(date):
+def process_file(input_file, csv_writer):
+    '''
+    :param input_file: Input file name
+    :param csv_writer:
+    :return: 0 for success
+    '''
+    with open(input_file, 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        next(reader, None)  # Skip header
+
+        # Production sysstem should have more exception handling for things like
+        # Empty rows, inccomplete SSN etc.
+        for row in reader:
+            (id, name, dob, ssn, state) = row
+            (first, last) = name.split(' ')
+            dob = parse_date(dob)
+            ssn = '***-**' + ssn[-5:]
+            state = _STATE_CODE_LOOKUP.get(state, 'N/A')
+            csv_writer.writerow([id, name, first, last, dob, ssn, state])
+
+def parse_date(date: str):
     '''
     Parse date of brith
     :param date: '1985-12-04'

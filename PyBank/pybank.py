@@ -61,13 +61,12 @@ def gather_data(data, input_file):
     :param input_file: Input file name
     :return: 0 for success
     '''
-    with open(input_file) as csvfile:
+    with open(input_file, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         next(reader, None) # Skip header
         for row in reader:
             month = normalize_month(row[0])
             data[month] = data.get(month, 0) + int(row[1])
-
 
 def summarize(data, summary_file=None):
     '''
@@ -88,7 +87,6 @@ def summarize(data, summary_file=None):
     for month in sorted(data, key=month_sort_key):
         revenue = data[month]
         total_revenue += revenue
-
         if prev_revenue:
             change = revenue - prev_revenue
             if change > increase_revenue:
@@ -115,7 +113,7 @@ def summarize(data, summary_file=None):
     print(summary)
 
     if summary_file:
-        with open(summary_file, 'w') as outfile:
+        with open(summary_file, 'w', newline='') as outfile:
             outfile.write(summary)
 
     return 0
@@ -124,7 +122,6 @@ def normalize_month(month):
     '''
     :param month:
     :return: month normalized to Jan-12
-
     Assume either Jan-12 or Jan-2012 format.
     Production system will need to a lot more sophisticated
     '''

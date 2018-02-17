@@ -48,11 +48,11 @@ def gather_data(data, input_file):
     :param input_file: Input file name
     :return: 0 for success
     '''
-    with open(input_file) as csvfile:
+    with open(input_file, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         next(reader, None) # Skip header
         for row in reader:
-            (_, _, candidate) = row
+            (_, _, candidate) = row # Discard first two columns
             data[candidate] = data.get(candidate, 0) + 1
 
 def summarize(data, summary_file=None):

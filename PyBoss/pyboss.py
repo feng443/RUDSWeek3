@@ -8,6 +8,7 @@
 
     <Chan Feng> 2018-02
 '''
+import os
 import csv
 from argparse import ArgumentParser
 
@@ -65,6 +66,8 @@ _STATE_CODE_LOOKUP = {
     'Wyoming': 'WY',
 }
 
+_DATA_DIR = 'raw_data'
+
 def main():
     '''
     return: 0 for success
@@ -81,7 +84,7 @@ def main():
     with open(output_file, 'w', newline='') as out_fh:
         csv_writer = csv.writer(out_fh, delimiter=',')
         csv_writer.writerow(['Emp ID', 'First Name', 'Last Name', 'DOB', 'SSN', 'State'])
-        for input_file in args.input_files:
+        for input_file in [os.path.join(_DATA_DIR, f) for f in args.input_files]:
             process_file(input_file, csv_writer)
     return 0
 

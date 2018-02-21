@@ -9,6 +9,7 @@
     <Chan Feng> 2018-02
 
 '''
+import os
 import csv
 from argparse import ArgumentParser
 
@@ -23,6 +24,8 @@ Total Votes: {total_votes:,}
 Winner: {winer}
 -------------------------'''
 
+_DATA_DIR = 'raw_data'
+
 def main():
     '''
     return: 0 for success
@@ -35,7 +38,7 @@ def main():
     args = arg_parser.parse_args()
 
     data = {}
-    for input_file in args.input_files:
+    for input_file in [ os.path.join(_DATA_DIR, f) for f in args.input_files]:
         gather_data(data, input_file)
 
     summarize(data, args.summary_file or _SUMMARY_FILE)

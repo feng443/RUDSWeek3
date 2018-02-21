@@ -15,6 +15,7 @@
 
 '''
 
+import os
 import re
 from argparse import ArgumentParser
 
@@ -29,6 +30,7 @@ Approximate Word Count: {word_count}
 Approximate Sentence Count: {sentence_count}
 Average Letter Count: {average_letter_count:.2f}
 Average Sentence Length: {average_sentence_length:.2f}'''
+_DATA_DIR = 'raw_data'
 
 def main():
     '''
@@ -42,7 +44,7 @@ def main():
     args = arg_parser.parse_args()
 
     paragraphs = []
-    for input_file in args.input_files:
+    for input_file in [os.path.join(_DATA_DIR, f) for f in args.input_files]:
         with open(input_file, 'r') as f:
             for paragraph in f:
                 paragraphs.append(paragraph)

@@ -13,6 +13,7 @@ TODO:
 
 [PyBank/pybank.py](PyBank/pybank.py)
 
+Output with both input files (Can also pass single input file)
 ```buildoutcfg
 Financial Analysis
 --------------------------------
@@ -27,6 +28,7 @@ Greatest Decrease in Revenue: Aug-14 ($-2,293,129)
 
 [PyPoll/pypoll.py](PyPoll/pypoll.py)
 
+Output with both input file.
 ```buildoutcfg
 Election Results
 -------------------------
@@ -68,6 +70,7 @@ Should be
 re.split("(?<=[.!?]) +", paragraph)
 ```
 
+Output with both input files.
 ```buildoutcfg
 Paragraph Analysis
 -----------------

@@ -6,6 +6,8 @@
 
         pypoll.py [--summary_file=SUMMARY_FILE] input_file_1 input_file_2 ...
 
+    TODO: Try deafultdict
+
     <Chan Feng> 2018-02
 
 '''
